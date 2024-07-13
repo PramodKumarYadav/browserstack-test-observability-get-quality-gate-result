@@ -14,13 +14,13 @@ inputs:
     description: 'name of the build'
     required: true
   browserstack-username:  
-    description: 'BrowserStack API key'
+    description: 'BrowserStack username'
     required: true
   browserstack-access-key:  
     description: 'BrowserStack API value'
     required: true
   timeout-in-seconds:  
-    description: 'timeout duration in seconds'
+    description: 'timeout duration in seconds after which pooling for result stops'
     required: false
     default: 120
 

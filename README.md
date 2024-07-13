@@ -13,7 +13,44 @@ Since many companies use GitHub as their CICD solution, this action provides a 3
 
 And that is the reason of existance of this particular action.
 
-## Below is an example to use quality-gate-result from both within a job and from another job
+## Inputs
+```
+inputs:
+  project-name:  
+    description: 'name of the project'
+    required: true
+  build-name: 
+    description: 'name of the build'
+    required: true
+  browserstack-username:  
+    description: 'BrowserStack username'
+    required: true
+  browserstack-access-key:  
+    description: 'BrowserStack API value'
+    required: true
+  timeout-in-seconds:  
+    description: 'timeout duration in seconds after which pooling for result stops'
+    required: false
+    default: 120
+```
+
+## Outputs
+
+```
+outputs:
+  build-id:
+    description: "Build ID"
+    value: ${{ steps.get_build_id.outputs.BUILD_ID }}
+  quality-gate-result:
+    description: "Quality Gate Result"
+    value: ${{ steps.get_quality_gate_result.outputs.QUALITY_GATE_RESULT }}
+
+```
+
+## Example usage
+Below is an example that shows how you can use quality-gate-result both 
+- From within a job 
+- And from another job
 
 ```yaml {"id":"01J2NSXS32KV8TSMM4W64D9WMT"}
 on:
