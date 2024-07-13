@@ -4,6 +4,7 @@ To get quality gate result from browserstack test observability API
 
 ## Below is an example to use quality-gate-result from both within a job and from another job
 
+```
 on:
   workflow_dispatch:
 
@@ -42,4 +43,4 @@ jobs:
       run: |
         echo "Build ID: ${{ needs.browserstack_result.outputs.build-id }}"
         echo "Quality Gate Result: ${{ needs.browserstack_result.outputs.quality-gate-result }}"
-  
+```
