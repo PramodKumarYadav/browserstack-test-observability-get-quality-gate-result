@@ -1,0 +1,107 @@
+name: 'Get Quality Gate Result'
+author: 'Pramod Yadav'
+description: 'To fetch the quality gate result from BrowserStack API'
+
+inputs:
+  project-name:  
+    description: 'name of the project'
+    required: true
+  build-name: 
+    description: 'name of the build'
+    required: true
+  browserstack-username:  
+    description: 'BrowserStack API key'
+    required: true
+  browserstack-access-key:  
+    description: 'BrowserStack API value'
+    required: true
+  timeout-in-seconds:  
+    description: 'timeout duration in seconds'
+    required: false
+    default: 120
+
+outputs:
+  build-id:
+    description: "Build ID"
+    value: ${{ steps.get_build_id.outputs.BUILD_ID }}
+  quality-gate-result:
+    description: "Quality Gate Result"
+    value: ${{ steps.get_quality_gate_result.outputs.QUALITY_GATE_RESULT }}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y jq
+      shell: bash
+
+    - name: Get build_id
+      id: get_build_id
+      run: |
+        end=$((SECONDS+${{ inputs.timeout-in-seconds }})) 
+        while [ $SECONDS -lt $end ]; do
+          response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/builds/latest?project_name=${{ inputs.project-name }}&build_name=${{ inputs.build-name }}")
+          if echo "$response" | jq '.build_id' | grep -q -v null; then
+            echo "Desired value found!"
+            echo "$response" | jq '.' > latest-build-run-details.json
+            build_id=$(echo "$response" | jq -r '.build_id')
+            echo "BUILD_ID=$build_id" >> $GITHUB_ENV
+            echo "BUILD_ID=$build_id" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            echo "Desired value not found, retrying..."
+            sleep 5
+          fi
+        done
+        echo "Timeout reached without finding desired value"
+        exit 1
+      shell: bash
+
+    - name: Get quality_gate_result
+      id: get_quality_gate_result
+      run: |
+        echo "BUILD_ID value: ${{ env.BUILD_ID }}"
+        end=$((SECONDS+${{ inputs.timeout-in-seconds }})) 
+        while [ $SECONDS -lt $end ]; do
+          response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/quality-gates/${{ env.BUILD_ID }}")
+          status=$(echo "$response" | jq '.status')
+          if [ "$status" == "running" ]; then
+            echo "Quality Gate Result not available yet, retrying..."
+            sleep 5
+          else
+            echo "Quality Gate Result is ready!"
+            echo "$response" | jq '.' > quality-gate-result.json
+            quality_gate_result=$(echo "$response" | jq -r '.quality_gate_result')
+            echo "QUALITY_GATE_RESULT=$quality_gate_result" >> $GITHUB_ENV
+            echo "QUALITY_GATE_RESULT=$quality_gate_result" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+        done
+        echo "Timeout reached without finding desired value"
+        exit 1
+      shell: bash
+
+    - name: Print quality_gate_result
+      run: |
+        echo "QUALITY_GATE_RESULT value: ${{ env.QUALITY_GATE_RESULT }}"
+      shell: bash
+
+    - name: Upload build run details
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: latest-build-run-details
+        path: latest-build-run-details.json
+
+    - name: Upload quality gate result
+      if: success()
+      uses: actions/upload-artifact@v4
+      with:
+        name: quality-gate-result
+        path: quality-gate-result.json
+
