@@ -1,7 +1,10 @@
 name: 'Get Quality Gate Result'
 author: 'Pramod Yadav'
 description: 'To fetch the quality gate result from BrowserStack API'
-icon: 'arrow-left-circle'
+branding:
+  icon: 'arrow-left-circle'
+  color: 'yellow'
+
 
 inputs:
   project-name:  
