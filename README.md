@@ -3,7 +3,7 @@
 To get quality gate result from browserstack test observability API
 
 ## Why this action?
-BrowserStack has created an amazing product called "[Test Obervability[(https://observability.browserstack.com/home)]". 
+BrowserStack has created an amazing product called "[Test Obervability](https://observability.browserstack.com/home)". 
 
 They provide [two examples](https://www.browserstack.com/docs/test-observability/quality-gate/integrate-via-api) of how to integrate their Quality Gate API in your continous integration workflows. One of it is generic shell script and another one a pipeline example for Jenkins.
 ![Options to integrate in CI](./assets/image.png)
