@@ -1,4 +1,4 @@
-name: 'Get Quality Gate Result'
+name: 'Get BrowserStack Quality Gate Result'
 author: 'Pramod Yadav'
 description: 'To fetch the quality gate result from BrowserStack API'
 branding:
