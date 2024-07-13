@@ -6,7 +6,8 @@ To get quality gate result from browserstack test observability API
 BrowserStack has created an amazing product called "[Test Obervability](https://observability.browserstack.com/home)". 
 
 They provide [two examples](https://www.browserstack.com/docs/test-observability/quality-gate/integrate-via-api) of how to integrate their Quality Gate API in your continous integration workflows. One of it is generic shell script and another one a pipeline example for Jenkins.
-![Options to integrate in CI](./assets/image.png)
+
+<img src="./assets/image.png" alt="Available options to integrate in CI at the time of writing this action" width="400" height="200" />
 
 Since many companies use GitHub as their CICD solution, this action provides a 3rd (and direct alternative) to get result for their Quality Gate API endpoint for a project and a build.
 
