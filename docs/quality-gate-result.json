@@ -1,0 +1,25 @@
+{
+    "status": "passed",
+    "build_uuid": "rdjrhaccnctnyue5zpxch29enfew6icqnc8uainy",
+    "build_url": "https://observability.browserstack.com/projects/sandbox-repo/builds/run-health-checks-on-dev/127",
+    "quality_gate_result": "passed",
+    "quality_profiles": [
+        {
+            "id": "dd2a2735-6c5b-41e8-a958-cda884336a2b",
+            "name": "Quality Gate",
+            "type": "fail if",
+            "result": "passed",
+            "rules": [
+                {
+                    "condition": "Failure category to be investigated is automatically mapped to any tests in the build",
+                    "value": "failed",
+                    "result": "Absent",
+                    "regex": null,
+                    "testTags": null,
+                    "folders": null,
+                    "alert": null
+                }
+            ]
+        }
+    ]
+}
