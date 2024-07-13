@@ -4,7 +4,7 @@ To get quality gate result from browserstack test observability API
 
 ## Below is an example to use quality-gate-result from both within a job and from another job
 
-```
+```yaml {"id":"01J2NSXS32KV8TSMM4W64D9WMT"}
 on:
   workflow_dispatch:
 
@@ -20,7 +20,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Get BrowserStack Result
-      uses: actions/browserstack-test-observability-get-quality-gate-result@v1
+      uses: PramodKumarYadav/browserstack-test-observability-get-quality-gate-result@v3
       id: get_browserstack_result
       with:
         project-name: 'your-test-project-name'
