@@ -68,7 +68,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Get BrowserStack Result
-      uses: PramodKumarYadav/browserstack-test-observability-get-quality-gate-result@v3
+      uses: PramodKumarYadav/browserstack-test-observability-get-quality-gate-result@v5
       id: get_browserstack_result
       with:
         project-name: 'your-test-project-name'
@@ -219,7 +219,7 @@ For reference, the output from the endpoint to fetch latest build: https://api-o
 }
 ```
 
-## Reference output builds/latest endpoint
+## Reference output quality gate endpoint
 For reference, the output from the endpoint to fetch quality gate result: https://api-observability.browserstack.com/ext/v1/quality-gates, looks as below.
 
 ```
