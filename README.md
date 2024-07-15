@@ -93,9 +93,9 @@ jobs:
         echo "Quality Gate Result: ${{ needs.browserstack_result.outputs.quality-gate-result }}"
 ```
 
-## Published artefacts 
+## Published artifacts 
 
-Two artefacts will be published on GitHub run that contains full response from get latest build api and quality gates api. Sample artefacts are below:
+Two artifacts will be published on GitHub run that contains full response from get latest build api and quality gates api. Sample artifacts are below:
 1. [latest-build-run-details.json](./docs/latest-build-run-details.json)
 2. [quality-gate-result.json](./docs/quality-gate-result.json)
 
@@ -105,4 +105,11 @@ Two artefacts will be published on GitHub run that contains full response from g
 
 
 
+## Reference
+
+To create and push new tags: 
+
+```
+pramodyadav@Pramods-Laptop browserstack-test-observability-get-quality-gate-result % git tag -m "add your message here" v7                   
+pramodyadav@Pramods-Laptop browserstack-test-observability-get-quality-gate-result % git push --follow-tags   
 ```
