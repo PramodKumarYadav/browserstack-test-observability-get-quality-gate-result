@@ -73,7 +73,7 @@ runs:
         end=$((SECONDS+${{ inputs.timeout-in-seconds }})) 
         while [ $SECONDS -lt $end ]; do
           response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/quality-gates/${{ env.BUILD_ID }}")
-          status=$(echo "$response" | jq '.status')
+          status=$(echo "$response" | jq -r '.status') 
           echo "Status: $status"
           if [ "$status" == "running" ]; then
             echo "Quality Gate Result not available yet, retrying..."
