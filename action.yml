@@ -13,6 +13,9 @@ inputs:
   build-name: 
     description: 'name of the build'
     required: true
+  build-tags: 
+    description: 'name of the custom build tags'
+    required: true
   browserstack-username:  
     description: 'BrowserStack username'
     required: true
@@ -49,7 +52,7 @@ runs:
       run: |
         end=$((SECONDS+${{ inputs.timeout-in-seconds }})) 
         while [ $SECONDS -lt $end ]; do
-          response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/builds/latest?project_name=${{ inputs.project-name }}&build_name=${{ inputs.build-name }}")
+          response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/builds/latest?project_name=${{ inputs.project-name }}&build_name=${{ inputs.build-name }}&build_tags=${{ inputs.build-tags }}")
           if echo "$response" | jq '.build_id' | grep -q -v null; then
             echo "Desired value found!"
             echo "$response" | jq '.' > latest-build-run-details.json
