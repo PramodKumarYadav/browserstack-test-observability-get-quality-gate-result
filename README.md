@@ -119,6 +119,6 @@ Two artifacts will be published on GitHub run that contains full response from g
 To create and push new tags:
 
 ```sh {"id":"01J2XFHJFT1K765K3D5J6BDSSC"}
-pramodyadav@Pramods-Laptop browserstack-test-observability-get-quality-gate-result % git tag -m "add your message here" v7                   
+pramodyadav@Pramods-Laptop browserstack-test-observability-get-quality-gate-result % git tag -a -m "add your message here" v7                   
 pramodyadav@Pramods-Laptop browserstack-test-observability-get-quality-gate-result % git push --follow-tags   
 ```
