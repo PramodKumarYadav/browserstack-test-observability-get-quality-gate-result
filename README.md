@@ -87,9 +87,10 @@ jobs:
         timeout-in-seconds: 60
 
     - name: Print BrowserStack Result in same job (and fail if quality gate failed)
+      # Possible quality-gate-result values: 'passed', 'failed', 'Quality Gate Analysis in process. Please try again in a few minutes.
       run: |
           echo "Quality Gate Result: ${{ steps.get_browserstack_result.outputs.quality-gate-result }}"
-          if [[ "${{ steps.get_browserstack_result.outputs.quality-gate-result }}" == "failed" ]]; then
+          if [[ "${{ steps.get_browserstack_result.outputs.quality-gate-result }}" != "passed" ]]; then
             exit 1
           fi
   
