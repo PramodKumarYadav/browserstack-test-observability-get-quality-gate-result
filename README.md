@@ -86,10 +86,12 @@ jobs:
         browserstack-access-key: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
         timeout-in-seconds: 60
 
-    - name: Print BrowserStack Result in same job
+    - name: Print BrowserStack Result in same job (and fail if quality gate failed)
       run: |
-        echo "Build ID: ${{ steps.get_browserstack_result.outputs.build-id }}"
-        echo "Quality Gate Result: ${{ steps.get_browserstack_result.outputs.quality-gate-result }}"
+          echo "Quality Gate Result: ${{ steps.get_browserstack_result.outputs.quality-gate-result }}"
+          if [[ "${{ steps.get_browserstack_result.outputs.quality-gate-result }}" == "failed" ]]; then
+            exit 1
+          fi
   
   use_browserstack_result:
     name: Print BrowserStack Result in another job
