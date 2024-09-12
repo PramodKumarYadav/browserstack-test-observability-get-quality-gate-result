@@ -47,12 +47,22 @@ runs:
         sudo apt-get install -y jq
       shell: bash
 
+    - name: Sanitize Inputs
+        id: sanitize-inputs
+        run: |
+          sanitized_project_name=$(echo "${{ inputs.project-name }}" | sed 's/ /%20/g')
+          sanitized_build_name=$(echo "${{ inputs.build-name }}" | sed 's/ /%20/g')
+          sanitized_build_tags=$(echo "${{ inputs.build-tags }}" | sed 's/ /%20/g')
+          echo "SANITIZED_PROJECT_NAME=$sanitized_project_name" >> $GITHUB_ENV
+          echo "SANITIZED_BUILD_NAME=$sanitized_build_name" >> $GITHUB_ENV
+          echo "SANITIZED_BUILD_TAGS=$sanitized_build_tags" >> $GITHUB_ENV
+
     - name: Get build_id
       id: get_build_id
       run: |
         end=$((SECONDS+${{ inputs.timeout-in-seconds }})) 
         while [ $SECONDS -lt $end ]; do
-          response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/builds/latest?project_name=${{ inputs.project-name }}&build_name=${{ inputs.build-name }}&build_tags=${{ inputs.build-tags }}")
+          response=$(curl -u "${{ inputs.browserstack-username }}:${{ inputs.browserstack-access-key }}" "https://api-observability.browserstack.com/ext/v1/builds/latest?project_name=${{ env.SANITIZED_PROJECT_NAME }}&build_name=${{ env.SANITIZED_BUILD_NAME }}&user_name=${{ inputs.browserstack-username }}&build_tags=${{ env.SANITIZED_BUILD_TAGS }}")
           if echo "$response" | jq '.build_id' | grep -q -v null; then
             echo "Desired value found!"
             echo "$response" | jq '.' > latest-build-run-details.json
@@ -62,7 +72,7 @@ runs:
             exit 0
           else
             echo "Desired value not found, retrying..."
-            sleep 5
+            sleep 3
           fi
         done
         echo "Timeout reached without finding desired value"
