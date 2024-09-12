@@ -76,7 +76,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: Get BrowserStack Result
-      uses: PramodKumarYadav/browserstack-test-observability-get-quality-gate-result@v5
+      uses: PramodKumarYadav/browserstack-test-observability-get-quality-gate-result@v10
       id: get_browserstack_result
       with:
         project-name: 'your-test-project-name'
