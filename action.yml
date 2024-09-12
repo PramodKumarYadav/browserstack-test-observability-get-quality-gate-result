@@ -48,14 +48,14 @@ runs:
       shell: bash
 
     - name: Sanitize Inputs
-        id: sanitize-inputs
-        run: |
-          sanitized_project_name=$(echo "${{ inputs.project-name }}" | sed 's/ /%20/g')
-          sanitized_build_name=$(echo "${{ inputs.build-name }}" | sed 's/ /%20/g')
-          sanitized_build_tags=$(echo "${{ inputs.build-tags }}" | sed 's/ /%20/g')
-          echo "SANITIZED_PROJECT_NAME=$sanitized_project_name" >> $GITHUB_ENV
-          echo "SANITIZED_BUILD_NAME=$sanitized_build_name" >> $GITHUB_ENV
-          echo "SANITIZED_BUILD_TAGS=$sanitized_build_tags" >> $GITHUB_ENV
+      id: sanitize-inputs
+      run: |
+        sanitized_project_name=$(echo "${{ inputs.project-name }}" | sed 's/ /%20/g')
+        sanitized_build_name=$(echo "${{ inputs.build-name }}" | sed 's/ /%20/g')
+        sanitized_build_tags=$(echo "${{ inputs.build-tags }}" | sed 's/ /%20/g')
+        echo "SANITIZED_PROJECT_NAME=$sanitized_project_name" >> $GITHUB_ENV
+        echo "SANITIZED_BUILD_NAME=$sanitized_build_name" >> $GITHUB_ENV
+        echo "SANITIZED_BUILD_TAGS=$sanitized_build_tags" >> $GITHUB_ENV
 
     - name: Get build_id
       id: get_build_id
