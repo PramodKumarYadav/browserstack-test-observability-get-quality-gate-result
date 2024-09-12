@@ -56,6 +56,7 @@ runs:
         echo "SANITIZED_PROJECT_NAME=$sanitized_project_name" >> $GITHUB_ENV
         echo "SANITIZED_BUILD_NAME=$sanitized_build_name" >> $GITHUB_ENV
         echo "SANITIZED_BUILD_TAGS=$sanitized_build_tags" >> $GITHUB_ENV
+      shell: bash
 
     - name: Get build_id
       id: get_build_id
