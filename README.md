@@ -67,7 +67,7 @@ on:
 name: Test Run Result as per Quality Gate
 jobs:
   browserstack_result:
-    name: Get BrowserStack Result
+    name: Quality Gate Result
     runs-on: ubuntu-latest
     outputs:
       build-id: ${{ steps.get_browserstack_result.outputs.build-id }}
