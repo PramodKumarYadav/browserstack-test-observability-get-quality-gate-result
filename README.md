@@ -64,7 +64,7 @@ Below is an example that shows how you can use quality-gate-result both
 on:
   workflow_dispatch:
 
-name: Get BrowserStack Result
+name: Test Run Result as per Quality Gate
 jobs:
   browserstack_result:
     name: Get BrowserStack Result
